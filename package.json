@@ -1,0 +1,22 @@
+{
+  "name": "dobbynews",
+  "version": "1.0.0",
+  "description": "News parser consolidator",
+  "main": "com/github/suryanarayanandv/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suryanarayanandv/DobbyNews.git"
+  },
+  "author": "suryanarayanandv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/suryanarayanandv/DobbyNews/issues"
+  },
+  "homepage": "https://github.com/suryanarayanandv/DobbyNews#readme",
+  "dependencies": {
+    "nodeman": "^1.1.2"
+  }
+}
