@@ -1,5 +1,5 @@
-const Parser = require("rss-parser");
-const fs = require("fs");
+import Parser from "rss-parser";
+import fs from "fs";
 const parser = new Parser();
 
 const get_supported_channels = (context) => {
@@ -58,7 +58,8 @@ const get_feeds = (url) => {
     });
 }
 
-module.exports = {
+export {
     get_supported_channels,
-    get_parser
-};
+    get_parser,
+    get_feeds
+}
