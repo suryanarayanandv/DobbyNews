@@ -1,0 +1,105 @@
+{
+    "channels": [
+        {
+            "context": "uk",
+            "supported_channels": [
+                {
+                    "name": "SG Accounting",
+                    "url": "https://sg-accounting.co.uk/feed"
+                },
+                {
+                    "name": "Swindells Accounting",
+                    "url": "https://www.swindellsaccounting.co.uk/feed/"
+                },
+                {
+                    "name": "RT Accountants",
+                    "url": "https://www.rtaccountants.co.uk/feed/"
+                },
+                {
+                    "name": "PKF Francis Clark",
+                    "url": "http://pkf-francisclark.co.uk/feed/"
+                },
+                {
+                    "name": "Danbro",
+                    "url": "https://www.danbro.co.uk/blog/feed/"
+                },
+                {
+                    "name": "Burgis Bullock",
+                    "url": "https://www.burgisbullock.com/feed/"
+                },
+                {
+                    "name": "FreeAgent",
+                    "url": "https://www.freeagent.com/blog/feed.rss"
+                },
+                {
+                    "name": "Outbooks",
+                    "url": "https://outbooks.co.uk/feed/"
+                },
+                {
+                    "name": "Accountex Insight",
+                    "url": "https://www.accountex.co.uk/insight/feed/"
+                },
+                {
+                    "name": "Accountancy Today",
+                    "url": "https://www.accountancytoday.co.uk/feed/"
+                },
+                {
+                    "name": "Accountant Jokes",
+                    "url": "https://feeds.feedburner.com/Accountantjokes"
+                },
+                {
+                    "name": "Initor Global",
+                    "url": "https://www.initor-global.co.uk/feed/"
+                },
+                {
+                    "name": "Concept Accountancy",
+                    "url": "https://conceptaccountancy.co.uk/feed/"
+                },
+                {
+                    "name": "Eagle Education",
+                    "url": "https://www.eagle-education.co.uk/feed/"
+                },
+                {
+                    "name": "Finance Equation",
+                    "url": "https://finance-equation.co.uk/feed/"
+                },
+                {
+                    "name": "Care Accountancy",
+                    "url": "https://careaccountancy.co.uk/feed/"
+                },
+                {
+                    "name": "Xeinadin Group",
+                    "url": "https://xeinadin.com/feed/"
+                },
+                {
+                    "name": "+Accountants",
+                    "url": "https://www.plusaccounting.co.uk/feed/"
+                },
+                {
+                    "name": "Shaikh & Co Accountants",
+                    "url": "https://www.shaikhandcoaccountants.com/feed/"
+                },
+                {
+                    "name": "Naseems Accountants",
+                    "url": "https://www.naseems.co.uk/feed/"
+                },
+                {
+                    "name": "The Chichester Accountants",
+                    "url": "https://www.thechichesteraccountants.com/feed/"
+                },
+                {
+                    "name": "Your Valued Accountants",
+                    "url": "https://www.yourvalued.co.uk/blog/rss/"
+                },
+                {
+                    "name": "Pearl Accountants",
+                    "url": "https://www.pearlaccountants.com/feed/"
+                },
+                {
+                    "name": "AAA Accounting",
+                    "url": "https://aaaaccounting.co.uk/feed/"
+                }
+            ]
+        }
+    ]
+}

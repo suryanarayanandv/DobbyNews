@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/suryanarayanandv/DobbyNews#readme",
   "dependencies": {
-    "nodeman": "^1.1.2"
+    "express": "^5.1.0",
+    "nodeman": "^1.1.2",
+    "rss-parser": "^3.13.0",
+    "simhash": "^0.1.0",
+    "simhash-js": "^1.0.0"
   }
 }
