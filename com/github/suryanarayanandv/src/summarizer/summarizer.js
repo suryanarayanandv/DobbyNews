@@ -85,12 +85,17 @@ const is_similar_content = async (contentA, contentB, threshold = 0.5) => {
     return parseFloat(similarity) >= threshold;
 }
 
-const content1 = "Legal things when supplying software as a business";
-const content2 = "Legal things when developing and supplying soft-wares as a business";
+// Test
+// const content1 = "Legal things when supplying software as a business";
+// const content2 = "Legal things when developing and supplying soft-wares as a business";
+// 
+// (async () => {
+//     const isSimilar = await is_similar_content(content1, content2);
+//     console.log(`Are the contents similar? ${isSimilar}`);
+// })().catch(err => {
+//     console.error("Error in main execution:", err);
+// });
 
-(async () => {
-    const isSimilar = await is_similar_content(content1, content2);
-    console.log(`Are the contents similar? ${isSimilar}`);
-})().catch(err => {
-    console.error("Error in main execution:", err);
-});
+export {
+    is_similar_content
+}

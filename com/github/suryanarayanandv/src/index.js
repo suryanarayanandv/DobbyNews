@@ -20,7 +20,3 @@
 //   });
 
 // })();
-
-const path = require('path');
-const gloveFile = path.join(__dirname, 'glove.6B.300d.txt');
-console.log('Loading GloVe embeddings from:', gloveFile);
