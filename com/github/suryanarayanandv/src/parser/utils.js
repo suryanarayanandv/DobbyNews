@@ -2,6 +2,7 @@ import Parser from "rss-parser";
 import fs from "fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { log } from "console";
 const parser = new Parser();
 
 
@@ -12,7 +13,7 @@ const get_supported_channels = (context) => {
     const __dirname = path.dirname(__filename);
     fs.readFile(__dirname + "/supported-channels.json", (err, data) => {
       if (err) {
-        console.log("Error while reading channels file: ", err);
+        log("Error while reading channels file: ", err);
         reject(err);
       } else {
         let channels = JSON.parse(data);

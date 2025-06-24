@@ -1,6 +1,7 @@
 import express from 'express'
 import { fetch_feeds_for_context } from './parser/main.js';
 import { filter_update_content_history } from './parser/utils.js';
+import { log } from './parser/logger.js';
 
 const app = new express();
 
@@ -18,7 +19,7 @@ app.get('/contents/:context', async (req, res) => {
         return res.status(400).json({ error: 'Context parameter is required' });
     }
     const today = new Date().toISOString();
-    console.log(`Received request for context: ${context} :: ${today}`);
+    log(`Received request for context: ${context} :: ${today}`);
 
     let filtered_news = await fetch_feeds_for_context(context);
     filtered_news = filter_update_content_history(filtered_news);
