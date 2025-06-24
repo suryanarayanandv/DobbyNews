@@ -21,6 +21,8 @@ const fetch_feeds_for_context = async (context) => {
       filtered_feeds_map[feed_catagory] = filter_contents_for_current_date(feeds_map[feed_catagory]);
     }
 
+    const now = new Date();
+    console.log(`Filtering feeds for current date: ${now.toISOString()}`);
     // Cosaine Smiliar Content will be removed.
     let keys = Object.keys(filtered_feeds_map);
     let unique_filteration_content_list = [];
@@ -45,21 +47,26 @@ const fetch_feeds_for_context = async (context) => {
         }
       }
     }
+    const endTime = new Date();
+    const timeTaken = endTime - now;
+    console.log(`Time taken to filter feeds: ${timeTaken} ms`);
 
     return unique_filteration_content_list;
 
   } catch (error) {
-    console.log("directory: ", __dirname);
     console.error("Error fetching feeds:", error);
     throw error;
   }
 }
-
-fetch_feeds_for_context("uk");
+ 
+// Test
+// fetch_feeds_for_context("uk");
 
 async function get_feeds_map(channels) {
   let feeds_map = {};
 
+  const startTime = Date.now();
+  console.log(`Fetching feeds for ${channels.length} channels...`);
   for (const channel of channels) {
     console.log(`Fetching feeds from: ${channel.name}`);
     const feeds_items = await get_feeds(channel.url);
@@ -69,5 +76,19 @@ async function get_feeds_map(channels) {
     }
     feeds_map[channel.name] = feeds_items.items;
   }
+  const endTime = Date.now();
+  const timeTaken = endTime - startTime;
+  console.log(`Time taken to fetch feeds: ${timeTaken} ms`);
+
   return feeds_map;
 }
+
+export { fetch_feeds_for_context };
+
+
+
+// TODO:
+// End point
+// Code refactor, loggers
+// Check any other possibilities
+// Optimize Filtering takes lots of time

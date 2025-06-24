@@ -69,28 +69,35 @@ const get_feeds = async (url) => {
   }
 }
 
-const update_content_history = (filtered_content) => {
-  fs.readFile("./content-history.json", (err, data) => {
-        if (err) {
-            console.error("Error reading content-history.json:", err);
-            return;
-        }
-        let history = JSON.parse(data);
-        if (!Array.isArray(history)) {
-            history = [];
-        }
+const filter_update_content_history = (filtered_content) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
 
-        filtered_content = filtered_content.filter(item => {
-            return !history.some(historyItem => historyItem.title === item.title);
-        });
+  try {
+    const historyPath = path.join(__dirname, "content-history.json");
+    let history = [];
+    if (fs.existsSync(historyPath)) {
+      const data = fs.readFileSync(historyPath, "utf-8");
+      history = JSON.parse(data);
+      if (!Array.isArray(history)) {
+        history = [];
+      }
+    }
 
-        history.push(...filtered_content);
-        fs.writeFile("./content-history.json", JSON.stringify(history, null, 2), (err) => {
-            if (err) {
-                console.error("Error writing to content-history.json:", err);
-            }
-        });
+    const newFilteredContent = filtered_content.filter(item => {
+      return !history.some(historyItem => historyItem.title === item.title);
     });
+
+    if (newFilteredContent.length > 0) {
+      history.push(...newFilteredContent);
+      fs.writeFileSync(historyPath, JSON.stringify(history, null, 2));
+    }
+
+    return newFilteredContent;
+  } catch (err) {
+    console.error("Error processing content-history.json:", err);
+    return [];
+  }
 }
 
 
@@ -111,13 +118,20 @@ const filter_contents_for_current_date = (feeds_list) => {
 }
 
 // Test
-// await get_feeds("https://www.freeagent.com/blog/feed.rss").then((res) => {
-//   console.log(res)
-// });
+// console.log(filter_update_content_history([
+//   {
+//     "title": "Test Content 5"
+//   },
+//   {
+//     "title": "Test Content 7"
+//   }
+// ]));
+
 
 export {
     get_supported_channels,
     get_parser,
     get_feeds,
-    filter_contents_for_current_date
+    filter_contents_for_current_date,
+    filter_update_content_history
 }
