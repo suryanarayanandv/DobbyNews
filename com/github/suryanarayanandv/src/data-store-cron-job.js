@@ -38,4 +38,4 @@ cron.schedule("0 10 * * *", async () => {
 console.log('Cron job scheduler started.', new Date().toISOString());
 
 // Prevent the process from exiting
-// setInterval(() => {}, 1000 * 60);
+setInterval(() => {}, 1000 * 60);
