@@ -3,7 +3,7 @@ import fs from 'fs';
 import { filter_update_content_history, get_supported_contexts } from './parser/utils.js';
 import { fetch_feeds_for_context } from './parser/main.js';
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("0 10 * * *", async () => {
     console.log("Running scheduled task to fetch feeds at 10:00 AM for the day", new Date().toISOString());
     const supported_contexts = await get_supported_contexts();
     console.log("Supported contexts:", supported_contexts);
