@@ -2,6 +2,7 @@ import express from 'express'
 import { fetch_feeds_for_context } from './parser/main.js';
 import { filter_update_content_history } from './parser/utils.js';
 import { log } from './parser/logger.js';
+import fs from 'fs';
 
 const app = new express();
 
