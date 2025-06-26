@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: your-api
+    env: node
+    runtime: node
+    buildCommand: npm install
+    startCommand: node com/github/suryanarayanandv/src/app.js
+
+  - type: worker
+    name: data-store-cron-job
+    env: node
+    runtime: node
+    buildCommand: npm install
+    startCommand: node com/github/suryanarayanandv/src/data-store-cron-job.js

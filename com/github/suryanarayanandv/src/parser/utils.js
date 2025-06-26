@@ -9,6 +9,24 @@ const parser = new Parser();
 const DATE_THRESHOLD = 30;
 const get_supported_channels = (context) => {
   return new Promise((resolve, reject) => {
+    get_supported_contexts()
+      .then((channels) => {
+        for (let i = 0; i < channels.length; i++) {
+          if (channels[i].context === context) {
+            resolve(channels[i].supported_channels);
+          }
+        }
+        reject(new Error("No supported channels found for the given context: " + context));
+      })
+      .catch((err) => {
+        log("Error while fetching supported channels: " + err, "error");
+        reject(err);
+      });
+  });
+};
+
+const get_supported_contexts = () => {
+  return new Promise((resolve, reject) => {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     fs.readFile(__dirname + "/supported-channels.json", (err, data) => {
@@ -21,11 +39,7 @@ const get_supported_channels = (context) => {
           reject(new Error("No channels found"));
         }
         channels = channels.channels;
-        for (let i = 0; i < channels.length; i++) {
-          if (channels[i].context === context) {
-            resolve(channels[i].supported_channels);
-          }
-        }
+        resolve(channels);
       }
     });
   });
@@ -131,6 +145,7 @@ const filter_contents_for_current_date = (feeds_list) => {
 
 export {
     get_supported_channels,
+    get_supported_contexts,
     get_parser,
     get_feeds,
     filter_contents_for_current_date,

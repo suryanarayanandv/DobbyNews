@@ -19,10 +19,9 @@ app.get('/contents/:context', async (req, res) => {
         return res.status(400).json({ error: 'Context parameter is required' });
     }
     const today = new Date().toISOString();
-    log(`Received request for context: ${context} :: ${today}`);
+    console.log(`Received request for context: ${context} :: ${today}`);
 
-    let filtered_news = await fetch_feeds_for_context(context);
-    filtered_news = filter_update_content_history(filtered_news);
+    let filtered_news = fs.readFileSync(`./current-day-contents-${context}.json`, 'utf-8');
 
     const response = {
         message: `News Today ${today}`,
