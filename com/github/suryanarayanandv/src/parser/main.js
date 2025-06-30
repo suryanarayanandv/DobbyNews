@@ -18,12 +18,12 @@ const fetch_feeds_for_context = async (context) => {
 
     let filtered_feeds_map = {};
     for (const feed_catagory in feeds_map) {
-      log(`Feed Catagory : ${feed_catagory}`);
+      console.log(`Feed Catagory : ${feed_catagory}`);
       filtered_feeds_map[feed_catagory] = filter_contents_for_current_date(feeds_map[feed_catagory]);
     }
 
     const now = new Date();
-    log(`Filtering feeds for current date: ${now.toISOString()}`);
+    console.log(`Filtering feeds for current date: ${now.toISOString()}`);
     // Cosaine Smiliar Content will be removed.
     let keys = Object.keys(filtered_feeds_map);
     let unique_filteration_content_list = [];
@@ -50,7 +50,7 @@ const fetch_feeds_for_context = async (context) => {
     }
     const endTime = new Date();
     const timeTaken = endTime - now;
-    log(`Time taken to filter feeds: ${timeTaken} ms`);
+    console.log(`Time taken to filter feeds: ${timeTaken} ms`);
 
     return unique_filteration_content_list;
 
@@ -67,9 +67,9 @@ async function get_feeds_map(channels) {
   let feeds_map = {};
 
   const startTime = Date.now();
-  log(`Fetching feeds for ${channels.length} channels...`);
+  console.log(`Fetching feeds for ${channels.length} channels...`);
   for (const channel of channels) {
-    log(`Fetching feeds from: ${channel.name}`);
+    console.log(`Fetching feeds from: ${channel.name}`);
     const feeds_items = await get_feeds(channel.url);
     if (!feeds_items || !feeds_items.items || feeds_items.items.length === 0) {
       console.warn(`No items found for channel: ${channel.name}`);
@@ -79,7 +79,7 @@ async function get_feeds_map(channels) {
   }
   const endTime = Date.now();
   const timeTaken = endTime - startTime;
-  log(`Time taken to fetch feeds: ${timeTaken} ms`);
+  console.log(`Time taken to fetch feeds: ${timeTaken} ms`);
 
   return feeds_map;
 }

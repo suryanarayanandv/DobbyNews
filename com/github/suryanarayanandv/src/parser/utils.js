@@ -19,7 +19,7 @@ const get_supported_channels = (context) => {
         reject(new Error("No supported channels found for the given context: " + context));
       })
       .catch((err) => {
-        log("Error while fetching supported channels: " + err, "error");
+        console.log("Error while fetching supported channels: " + err, "error");
         reject(err);
       });
   });
@@ -31,7 +31,7 @@ const get_supported_contexts = () => {
     const __dirname = path.dirname(__filename);
     fs.readFile(__dirname + "/supported-channels.json", (err, data) => {
       if (err) {
-        log("Error while reading channels file: ", err);
+        console.log("Error while reading channels file: ", err);
         reject(err);
       } else {
         let channels = JSON.parse(data);
