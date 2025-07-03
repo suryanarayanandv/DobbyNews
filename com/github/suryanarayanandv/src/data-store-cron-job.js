@@ -32,7 +32,7 @@ cron.schedule("0 10 * * *", async () => {
         }
     }
 },
-  { scheduled: true, timezone: "IST" }
+  { scheduled: true, timezone: "Asia/Kolkata" }
 );
 
 console.log('Cron job scheduler started.', new Date().toISOString());

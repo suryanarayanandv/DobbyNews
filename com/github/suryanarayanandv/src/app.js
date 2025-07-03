@@ -24,6 +24,7 @@ app.get('/contents/:context', async (req, res) => {
 
     let filtered_news = fs.readFileSync(`./current-day-contents-${context}.json`, 'utf-8');
 
+    const json_data = JSON.parse(filtered_news);
     const response = {
         message: `News Today ${today}`,
         context: context,
