@@ -26,12 +26,14 @@ cron.schedule("0 10 * * *", async () => {
                 news: filtered_news
             };
 
-            const news_collection = (await get_mongo_client()).db("DobbyNews").collection("News");
+            const connection = await get_mongo_client();
+            const news_collection = connection.db("DobbyNews").collection("News");
             const previous_date_ms = new Date(current_date_ms - 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0);
             
             await news_collection.deleteMany({ context: context_obj.context, date: previous_date_ms });
             await news_collection.insertOne(current_date_news);
             console.log(`Successfully updated news for context: ${context_obj.context} for date: ${new Date(current_date_ms).toISOString()}`);
+            connection.close();
 
             const __dirname = new URL(".", import.meta.url).pathname;
             const file_path = `${__dirname}/current-day-contents-${context_obj.context}.json`;
