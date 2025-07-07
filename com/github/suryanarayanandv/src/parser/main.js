@@ -1,6 +1,7 @@
+import fs from 'fs';
+import { get_mongo_client } from "../model/connection.js";
 import { is_similar_content } from "../summarizer/summarizer.js";
-import { log } from "./logger.js";
-import { get_supported_channels, get_feeds, get_parser, filter_contents_for_current_date } from "./utils.js";
+import { get_supported_channels, get_feeds, get_parser, filter_contents_for_current_date, get_supported_contexts, filter_update_content_history } from "./utils.js";
 
 const fetch_feeds_for_context = async (context) => {
   try {
@@ -84,7 +85,52 @@ async function get_feeds_map(channels) {
   return feeds_map;
 }
 
-export { fetch_feeds_for_context };
+async function fetch_and_update_today_feeds() {
+  const supported_contexts = await get_supported_contexts();
+    console.log("Supported contexts:", supported_contexts);
+    if (!supported_contexts || supported_contexts.length === 0) {
+      console.error("No supported contexts found. Exiting scheduled task.");
+      return;
+    }
+
+    for (const context_obj of supported_contexts) {
+        try {
+            console.log(`Fetching feeds for context: ${context_obj.context}`);
+            let filtered_news = await fetch_feeds_for_context(context_obj.context);
+            filtered_news = filter_update_content_history(filtered_news);
+
+            const current_date_ms = new Date().setHours(0, 0, 0, 0);
+            const current_date_news = {
+                context: context_obj.context,
+                date: current_date_ms,
+                news: filtered_news
+            };
+
+            const connection = await get_mongo_client();
+            const news_collection = connection.db("DobbyNews").collection("News");
+            const previous_date_ms = new Date(current_date_ms - 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0);
+            
+            await news_collection.deleteMany({ context: context_obj.context, date: previous_date_ms });
+            await news_collection.insertOne(current_date_news);
+            console.log(`Successfully updated news for context: ${context_obj.context} for date: ${new Date(current_date_ms).toISOString()}`);
+            connection.close();
+
+            const __dirname = new URL(".", import.meta.url).pathname;
+            const file_path = `${__dirname}/current-day-contents-${context_obj.context}.json`;
+            fs.writeFile(file_path, JSON.stringify(filtered_news, null, 2), (err) => {
+                if (err) {
+                    console.error(`Error writing to current-day-contents-${context_obj.context}.json:`, err);
+                } else {
+                    console.log(`Successfully updated current-day-contents-${context_obj.context}.json`);
+                }
+            });
+        } catch (error) {
+            console.error(`Error fetching feeds for context ${context_obj.context}:`, error);
+        }
+    }
+}
+
+export { fetch_feeds_for_context, fetch_and_update_today_feeds };
 
 
 

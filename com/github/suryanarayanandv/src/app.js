@@ -1,5 +1,5 @@
 import express from 'express'
-import { fetch_feeds_for_context } from './parser/main.js';
+import { fetch_and_update_today_feeds, fetch_feeds_for_context } from './parser/main.js';
 import { filter_update_content_history } from './parser/utils.js';
 import { log } from './parser/logger.js';
 import fs from 'fs';
@@ -13,6 +13,21 @@ app.get('/helloworld', (req, res) => {
     };
 
     res.json(response);
+});
+
+app.post('/schedule/feeds', (req, res) => {
+    const today = new Date().toISOString();
+    console.log(`Received request for today :: ${today}`);
+
+    res.json({ message: `Feed update started for today: ${today}` });
+
+    fetch_and_update_today_feeds()
+    .then(() => {
+        console.log(`Successfully updated feeds for today :: ${today}`);
+    })
+    .catch((error) => {
+        console.error(`Error updating feeds for today: ${error.message}`);
+    });
 });
 
 app.get('/contents/:context', async (req, res) => {
