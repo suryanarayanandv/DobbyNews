@@ -39,7 +39,8 @@ app.get('/contents/:context', async (req, res) => {
     console.log(`Received request for context: ${context} :: ${today}`);
 
     // let filtered_news = fs.readFileSync(`./current-day-contents-${context}.json`, 'utf-8');
-    const current_date_ms = new Date().setHours(0, 0, 0, 0);
+    // Midnight UTC Time
+    const current_date_ms = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), 0, 0, 0, 0)).getTime();
     console.log(`Current date in ms: ${current_date_ms}`);
     const connection = await get_mongo_client();
     const current_day_news = await (connection.db("DobbyNews").collection("News")).findOne({ context: context, date: current_date_ms });
